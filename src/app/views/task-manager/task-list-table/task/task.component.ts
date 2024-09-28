@@ -16,6 +16,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { GenericDialogData } from 'src/app/shared/interfaces/generic-dialog-dialog';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-task',
@@ -33,6 +34,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
     ConfirmationDialogComponent,
     ReactiveFormsModule,
     FormsModule,
+    MatTooltipModule,
   ],
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']

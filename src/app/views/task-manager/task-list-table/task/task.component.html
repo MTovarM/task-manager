@@ -1,9 +1,9 @@
 <mat-card>
     <mat-card-header>
         <div class="flex flex-row items-center w-full">
-            <mat-checkbox [formControl]="checkBoxControl" color="primary" (change)="statusChange($event.checked)"></mat-checkbox>
+            <mat-checkbox [formControl]="checkBoxControl" color="primary" (change)="statusChange($event.checked)" matTooltip="Cambiar estado de tarea"></mat-checkbox>
             <mat-card-title>{{ task.name }} - {{ task.limitDate | date:'dd/MM/yyyy' }}</mat-card-title>
-            <button mat-icon-button (click)="onEdit()" class="self-end">
+            <button mat-icon-button (click)="onEdit()" class="self-end" matTooltip="Editar tarea">
                 <mat-icon>edit</mat-icon>
             </button>
         </div>
