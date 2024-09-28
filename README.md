@@ -1,27 +1,20 @@
 # VelaioTaskManager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Este proyecto está hecho con [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
 
-## Development server
+## Funcionalidades
+1. Crear tareas.
+2. Listar tareas creadas.
+3. Editar tareas
+4. Cambiar estado de tareas (Pendiente --> Completada | Completada --> Pendiente).
+5. Filtrar tareas por estado (completadas o pendientes).
+6. Asignar personas a cada tarea, con sus nombres completos, edades y habilidades.
+7. Añadir, editar y eliminar personas de las tareas utilizando botones para estas acciones.
+8. Añadir, editar y eliminar habilidades para cada persona utilizando botones para estas acciones.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Algunos detalles
+1. No se consume ningún servicio API REST, los datos están en el servicio principal.
+2. Se utilizó Angular Material y Tailwind para una interfaz fluida y responsive.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Evidencia de funcionamiento
+Se publica el siguiente video en Youtube
