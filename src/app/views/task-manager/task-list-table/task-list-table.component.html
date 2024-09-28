@@ -8,6 +8,6 @@
         </mat-button-toggle-group>
     </form>
 </div>
-<div class="flex flex-wrap justify-center align-middle mt-2 pt-2 w-full bg-blue-50 rounded-md md:grid md:grid-cols-3 md:gap-4 overflow-y-auto max-h-96">
+<div class="flex flex-wrap justify-center align-middle mt-2 pt-2 w-full bg-blue-50 rounded-md md:grid md:grid-cols-3 md:gap-4 overflow-y-auto max-h-[420px]">
     <app-task *ngFor="let task of tasks()" [task]="task" class="w-full md:w-auto p-3 h-fit md:h-fit"></app-task>
 </div>

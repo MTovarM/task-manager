@@ -1,105 +1,107 @@
-<mat-card class="example-card">
-    <mat-card-header>
-        <div class="flex flex-row justify-between w-full items-center pb-2">
-            <mat-card-title *ngIf="!taskData()?.isEdit; else isEditTitle"><strong>Crear tarea</strong></mat-card-title>
-            <ng-template #isEditTitle>
-                <mat-card-title><strong>Editando tarea {{ taskToEdit?.name }}</strong></mat-card-title>
-            </ng-template>
-
-            <button mat-icon-button (click)="onCancel()" matTooltip="Volver al listado de tareas">
-                <mat-icon>undo</mat-icon>
-            </button>
-        </div>
-    </mat-card-header>
-    <mat-card-content>
-        <form [formGroup]="taskForm" class="md:flex md:flex-row md:space-x-2 flex flex-col space-y-1 w-full pb-2 pl-3">
-            <mat-form-field>
-                <mat-label>Nombre de la tarea</mat-label>
-                <input matInput placeholder="Tarea 1" formControlName="name">
-                <mat-error *ngIf="taskForm.get('name')?.touched && taskForm.get('name')?.hasError('required')">
-                    Este campo es requerido
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Fecha límite</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="limitDate">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error
-                    *ngIf="taskForm.get('limitDate')?.touched && taskForm.get('limitDate')?.hasError('required')">
-                    Este campo es requerido
-                </mat-error>
-            </mat-form-field>
-        </form>
-        <mat-divider class="pb-2"></mat-divider>
-        <strong>Asociar persona</strong>
-        <form [formGroup]="personForm" class="md:flex md:flex-row md:space-x-2 flex flex-col space-y-1 w-full pt-2  pl-3">
-            <mat-form-field class="h-fit">
-                <mat-label>Nombre completo</mat-label>
-                <input matInput placeholder="Nombre 1" formControlName="name">
-                <mat-error *ngIf="personForm.get('name')?.touched && personForm.get('name')?.hasError('required')">
-                    Este campo es requerido
-                </mat-error>
-                <mat-error *ngIf="personForm.get('name')?.hasError('minlength')">
-                    Debe contener mínimo 5 caracteres
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="h-fit">
-                <mat-label>Edad</mat-label>
-                <input matInput type="number" placeholder="18" formControlName="age">
-                <mat-error *ngIf="personForm.get('age')?.touched && personForm.get('age')?.hasError('required')">
-                    Este campo es requerido
-                </mat-error>
-                <mat-error *ngIf="personForm.get('age')?.hasError('min')">
-                    Debe ser mayor de 18
-                </mat-error>
-            </mat-form-field>
-        </form>
-        <div *ngIf="skillControl" class="pl-3">
-            <div class="flex flex-row space-x-4 items-center">
-                <mat-form-field class="w-full">
-                    <mat-label>Añadir Habilidad</mat-label>
-                    <input matInput type="text" [formControl]="skillControl" placeholder="Nueva habilidad...">
-                    <mat-error *ngIf="skillControl?.touched && skillControl?.hasError('required')">
+<div class="overflow-y-auto flex justify-center items-center h-full bg-slate-50">
+    <mat-card class="m-2">
+        <mat-card-header>
+            <div class="flex flex-row justify-between w-full items-center pb-2">
+                <mat-card-title *ngIf="!taskData()?.isEdit; else isEditTitle"><strong>Crear tarea</strong></mat-card-title>
+                <ng-template #isEditTitle>
+                    <mat-card-title><strong>Editando tarea {{ taskToEdit?.name }}</strong></mat-card-title>
+                </ng-template>
+    
+                <button mat-icon-button (click)="onCancel()" matTooltip="Volver al listado de tareas">
+                    <mat-icon>undo</mat-icon>
+                </button>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="taskForm" class="md:items-center md:flex md:flex-row md:space-x-3 flex flex-col space-y-1 w-full pb-2 pl-3">
+                <mat-form-field>
+                    <mat-label>Nombre de la tarea</mat-label>
+                    <input matInput placeholder="Tarea 1" formControlName="name">
+                    <mat-error *ngIf="taskForm.get('name')?.touched && taskForm.get('name')?.hasError('required')">
                         Este campo es requerido
                     </mat-error>
                 </mat-form-field>
-                <button mat-stroked-button (click)="addSkill()" [disabled]="skillControl.invalid"><mat-icon>add</mat-icon>Añadir habilidad</button>
-            </div>            
-        </div>
-        <div class="flex flex-row space-x-4 justify-between items-center pb-2 w-full">
-            <mat-chip-grid class="bg-blue-50 rounded-md">
-                <mat-chip-row *ngFor="let skill of skills" (removed)="deleteSkill(skill)" [editable]="true">
-                    {{skill}}
-                    <button matChipRemove>
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                </mat-chip-row>
-            </mat-chip-grid>
-            <button mat-flat-button (click)="addPerson()" color="primary" [disabled]="personForm.invalid || skills.length <= 0">
-                <ng-container *ngIf="editingPersonIndex >= 0; else addPersonLabel">
-                    <span>Actualizar persona</span>
-                </ng-container>
-                <ng-template #addPersonLabel>
-                    <span>Añadir persona</span>
-                </ng-template>
-            </button>
-        </div>
-        <mat-divider class="pb-2"></mat-divider>
-        <strong>Personas asociadas:</strong>
-        <app-show-associated-persons [enableAction]="true" [persons]="persons"
-            class="pl-3" (onDelete)="onDeletePerson($event)" (onEdit)="onEditPerson($event)"></app-show-associated-persons>
-    </mat-card-content>
-    <mat-card-actions>
-        <div class="flex justify-center space-x-3 w-full">
-            <button mat-raised-button (click)="onSave()" color="primary" [disabled]="persons.length <= 0 || (!taskForm.touched && taskForm.invalid) || editingPersonIndex != -1">
-                <span *ngIf="!taskData()?.isEdit; else isEditButton">Guardar tarea</span>
-                <ng-template #isEditButton>
-                    <span>Actualizar tarea</span>
-                </ng-template>
-            </button>
-            <button mat-raised-button (click)="onCancel()">Cancelar</button>
-        </div>
-    </mat-card-actions>
-</mat-card>
+                <mat-form-field>
+                    <mat-label>Fecha límite</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="limitDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error
+                        *ngIf="taskForm.get('limitDate')?.touched && taskForm.get('limitDate')?.hasError('required')">
+                        Este campo es requerido
+                    </mat-error>
+                </mat-form-field>
+            </form>
+            <mat-divider class="pb-2"></mat-divider>
+            <strong>Asociar persona</strong>
+            <form [formGroup]="personForm" class="md:w-full md:flex md:flex-row md:space-x-3 flex flex-col space-y-1 w-full pt-2  pl-3">
+                <mat-form-field>
+                    <mat-label>Nombre completo</mat-label>
+                    <input matInput placeholder="Nombre 1" formControlName="name">
+                    <mat-error *ngIf="personForm.get('name')?.touched && personForm.get('name')?.hasError('required')">
+                        Este campo es requerido
+                    </mat-error>
+                    <mat-error *ngIf="personForm.get('name')?.hasError('minlength')">
+                        Debe contener mínimo 5 caracteres
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Edad</mat-label>
+                    <input matInput type="number" placeholder="18" formControlName="age">
+                    <mat-error *ngIf="personForm.get('age')?.touched && personForm.get('age')?.hasError('required')">
+                        Este campo es requerido
+                    </mat-error>
+                    <mat-error *ngIf="personForm.get('age')?.hasError('min')">
+                        Debe ser mayor de 18
+                    </mat-error>
+                </mat-form-field>
+            </form>
+            <div *ngIf="skillControl" class="pl-3">
+                <div class="flex flex-row space-x-4 items-center">
+                    <mat-form-field class="w-full">
+                        <mat-label>Añadir Habilidad</mat-label>
+                        <input matInput type="text" [formControl]="skillControl" placeholder="Nueva habilidad...">
+                        <mat-error *ngIf="skillControl?.touched && skillControl?.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-stroked-button (click)="addSkill()" [disabled]="skillControl.invalid"><mat-icon>add</mat-icon>Añadir habilidad</button>
+                </div>            
+            </div>
+            <div class="flex flex-row space-x-4 justify-between items-center pb-2 w-full">
+                <mat-chip-grid class="bg-blue-50 rounded-md">
+                    <mat-chip-row *ngFor="let skill of skills" (removed)="deleteSkill(skill)" [editable]="true">
+                        {{skill}}
+                        <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                </mat-chip-grid>
+                <button mat-flat-button (click)="addPerson()" color="primary" [disabled]="personForm.invalid || skills.length <= 0">
+                    <ng-container *ngIf="editingPersonIndex >= 0; else addPersonLabel">
+                        <span>Actualizar persona</span>
+                    </ng-container>
+                    <ng-template #addPersonLabel>
+                        <span>Añadir persona</span>
+                    </ng-template>
+                </button>
+            </div>
+            <mat-divider class="pb-2"></mat-divider>
+            <strong>Personas asociadas:</strong>
+            <app-show-associated-persons [enableAction]="true" [persons]="persons"
+                class="pl-3" (onDelete)="onDeletePerson($event)" (onEdit)="onEditPerson($event)"></app-show-associated-persons>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="flex justify-center space-x-3 w-full">
+                <button mat-raised-button (click)="onSave()" color="primary" [disabled]="persons.length <= 0 || taskForm.invalid">
+                    <span *ngIf="!taskData()?.isEdit; else isEditButton">Guardar tarea</span>
+                    <ng-template #isEditButton>
+                        <span>Actualizar tarea</span>
+                    </ng-template>
+                </button>
+                <button mat-raised-button (click)="onCancel()">Cancelar</button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>
