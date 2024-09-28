@@ -44,7 +44,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     MatChipsModule,
     MatDialogModule,
     ConfirmationDialogComponent,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.scss']
@@ -135,7 +135,7 @@ export class CreateTaskComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((changeStatus) => {
       if (changeStatus) {
-        this.toast.success('Se ha actualizado el estado de la tarea correctamente.', 'Estado actualizado');
+        this.toast.success('Se ha eliminado correctamente.', 'Persona eliminada');
         this.persons.splice(personIndex, 1);
       }
     });
@@ -153,6 +153,10 @@ export class CreateTaskComponent implements OnInit {
    * Evento cuando se oprime guardar
    */
   onSave(): void {
+    if (this.taskForm.invalid) {
+      this.toast.warning('Complete los datos de la tarea.', 'Advertencia');
+      return;
+    }
     const { name, limitDate } = this.taskForm.value;
 
     const task: Task = {
