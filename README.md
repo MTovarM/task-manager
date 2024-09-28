@@ -17,4 +17,4 @@ Este proyecto está hecho con [Angular CLI](https://github.com/angular/angular-c
 2. Se utilizó Angular Material y Tailwind para una interfaz fluida y responsive.
 
 ## Evidencia de funcionamiento
-Se publica el siguiente video en Youtube
+Se publica el siguiente video en [Youtube](https://www.youtube.com/watch?v=VNcKjFhUCvQ) y [Drive](https://drive.google.com/file/d/16MpRcZ2udB64JAb6ZvFXXvhajGP6Xpbw/view?usp=drive_link)
