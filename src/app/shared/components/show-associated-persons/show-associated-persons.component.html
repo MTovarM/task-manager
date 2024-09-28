@@ -1,0 +1,26 @@
+<div>
+    <div *ngIf="persons.length <= 0; else personsTemplate" class="text-center bg-blue-50 rounded-md">
+        No se han asignado personas a esta tarea
+    </div>
+    <ng-template #personsTemplate>
+        <mat-list class="max-h-40 overflow-y-auto bg-blue-50 rounded-md">
+            <mat-list-item *ngFor="let person of persons; let i = index">            
+                <div class="flex items-center justify-start">
+                    <div *ngIf="enableAction">
+                        <button mat-icon-button (click)="onEditClick(person, i)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="onDeleteClick(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                    <div class="flex flex-col justify-start items-center">
+                        <span class="self-start">{{ person.name }} ({{ person.age }})</span>
+                        <span class="skills self-start">Habilidades: {{ person.skills.join(', ') }}</span>
+                    </div>
+                </div>
+                <hr class="py-1">
+            </mat-list-item>
+        </mat-list>
+    </ng-template>
+</div>
