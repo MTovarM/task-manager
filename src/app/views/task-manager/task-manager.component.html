@@ -1,0 +1,12 @@
+<mat-card class="m-2">
+    <mat-card-content>
+        <div class="w-full md:w-auto pb-3">
+            <button mat-raised-button color="primary" class="w-full" (click)="onCreateButtonClick()">
+                <mat-icon>add</mat-icon>Crear tarea
+            </button>
+        </div>
+        <mat-divider class="pb-3"></mat-divider>
+        <h2 >Lista de tareas</h2>
+        <app-task-list-table></app-task-list-table>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-header>
+        <div class="flex flex-row items-center w-full">
+            <mat-checkbox [formControl]="checkBoxControl" color="primary" (change)="statusChange($event.checked)"></mat-checkbox>
+            <mat-card-title>{{ task.name }} - {{ task.limitDate | date:'dd/MM/yyyy' }}</mat-card-title>
+            <button mat-icon-button (click)="onEdit()" class="self-end">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <p>Personas asociadas:</p>
+        <app-show-associated-persons [persons]="task.associatedPersons" class="pl-3"></app-show-associated-persons>
+    </mat-card-content>
+</mat-card>
